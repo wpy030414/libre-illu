@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 暖白底 + 纯白内容面，接近 igoutu/icons8 的浅色设计语言 */
+    --background: 40 20% 98%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --secondary: 40 12% 96%;
+    --secondary-foreground: 0 0% 12%;
+    --muted: 40 12% 96%;
+    --muted-foreground: 30 5% 44%;
+    --accent: 40 14% 94%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 40 8% 90%;
+    --input: 40 8% 88%;
+    --radius: 0.75rem;
+
+    /* 品牌色（取自 igoutu.cn）：图标站为绿，插图站为黄 */
+    --brand: 135 71% 41%;
+    --brand-hover: 135 72% 34%;
+    --brand-soft: 135 72% 96%;
+    --brand-foreground: 0 0% 100%;
+    /* 标题高亮用更深的品牌色，保证白底可读 */
+    --brand-text: 135 65% 33%;
+
+    --primary: var(--brand);
+    --primary-foreground: var(--brand-foreground);
+    --ring: var(--brand);
+
+    --font-sans:
+      ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+      'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  }
+
+  /* 插图模式：切换到插图站的黄色品牌色阶 */
+  :root[data-mode='illustrations'] {
+    --brand: 45 92% 58%;
+    --brand-hover: 43 87% 48%;
+    --brand-soft: 45 100% 94%;
+    --brand-foreground: 30 20% 10%;
+    --brand-text: 32 88% 38%;
+  }
+
+  .dark {
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 12%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 17%;
+    --accent-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --brand-soft: 0 0% 18%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: hsl(var(--brand) / 0.2);
+  }
+
+  /* 更细、更安静的滚动条 */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+    background-color: hsl(var(--muted-foreground) / 0.35);
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.55);
+  }
+}
+
+@layer utilities {
+  .brand-soft {
+    background-color: hsl(var(--brand-soft));
+  }
+
+  /* 详情预览用的棋盘格 */
+  .checkerboard {
+    background-image: repeating-conic-gradient(
+      from 0deg,
+      hsl(var(--muted)) 0deg 90deg,
+      hsl(var(--background)) 90deg 180deg
+    );
+    background-size: 16px 16px;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
